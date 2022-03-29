@@ -16,4 +16,10 @@ describe('testing Ship factory function', () => {
     test.todo('ship being hit on -1')
     test.todo('ship being hit on 10')
   })
+  describe('ship is sunk', () => {
+    test.todo('ship partially damaged, been hit on 1 point')
+    test.todo('ship partially damaged, been hit on 3 point')
+    test.todo('ship have no damage')
+    test.todo('ship totally damaged')
+  })
 })
