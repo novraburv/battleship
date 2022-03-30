@@ -6,16 +6,16 @@ describe('testing Ship factory function', () => {
       return x === 'ok'
     }
     test('ship length is 4', () => {
-      const testShip = Ship(4)
-      expect(testShip).toHaveProperty('status')
-      expect(testShip.status()).toHaveLength(4)
-      expect(testShip.status().every(allOK)).toBe(true)
+      const dummy = Ship(4)
+      expect(dummy).toHaveProperty('status')
+      expect(dummy.status()).toHaveLength(4)
+      expect(dummy.status().every(allOK)).toBe(true)
     })
     test('ship length is 2', () => {
-      const testShip = Ship(2)
-      expect(testShip).toHaveProperty('status')
-      expect(testShip.status()).toHaveLength(2)
-      expect(testShip.status().every(allOK)).toBe(true)
+      const dummy = Ship(2)
+      expect(dummy).toHaveProperty('status')
+      expect(dummy.status()).toHaveLength(2)
+      expect(dummy.status().every(allOK)).toBe(true)
     })
     test('ship length is 0', () => {
       expect(() => Ship(0)).toThrow('unable to build ship size 0')
@@ -25,29 +25,29 @@ describe('testing Ship factory function', () => {
     })
   })
   describe('ship being hit', () => {
-    let testShip
+    let dummy
     beforeAll(() => {
       // assume ship's length is 4
-      testShip = Ship(4)
+      dummy = Ship(4)
     })
     test('ship being hit on 0', () => {
-      expect(testShip.hit(0)).toBe('ship has been hit on hull 0')
-      expect(testShip.status()).toEqual(['hit', 'ok', 'ok', 'ok'])
+      expect(dummy.hit(0)).toBe('ship has been hit on hull 0')
+      expect(dummy.status()).toEqual(['hit', 'ok', 'ok', 'ok'])
     })
     test('ship being hit on 2', () => {
-      expect(testShip.hit(2)).toBe('ship has been hit on hull 2')
-      expect(testShip.status()).toEqual(['hit', 'ok', 'hit', 'ok'])
+      expect(dummy.hit(2)).toBe('ship has been hit on hull 2')
+      expect(dummy.status()).toEqual(['hit', 'ok', 'hit', 'ok'])
     })
     test('ship being hit on -1', () => {
-      expect(() => testShip.hit(-1)).toThrow('missed')
+      expect(() => dummy.hit(-1)).toThrow('missed')
     })
     test('ship being hit on 10', () => {
-      expect(() => testShip.hit(10)).toThrow('missed')
+      expect(() => dummy.hit(10)).toThrow('missed')
     })
   })
   describe('ship is sunk', () => {
-    test.todo('ship partially damaged, been hit on 1 point')
-    test.todo('ship partially damaged, been hit on 3 point')
+    test.todo('ship partially damaged, been hit on hull 1')
+    test.todo('ship partially damaged, been hit on hull 3')
     test.todo('ship have no damage')
     test.todo('ship totally damaged')
   })
