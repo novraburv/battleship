@@ -3,7 +3,7 @@ function Ship (size) {
 
   const array = new Array(size).fill('ok')
 
-  function status () {
+  function getStatus () {
     return array
   }
 
@@ -13,7 +13,11 @@ function Ship (size) {
     array[pos] = 'hit'
     return `ship has been hit on hull ${pos}`
   }
-  return { status, hit }
+
+  function isSunk () {
+    return array.every(x => x === 'hit')
+  }
+  return { getStatus, hit, isSunk }
 }
 
 module.exports = Ship
