@@ -1,11 +1,4 @@
-function Gameboard (x, y) {
-  const board = new Array(y).fill(new Array(x).fill())
-
-  function getBoard () {
-    return board
-  }
-  return { getBoard }
-}
+const Gameboard = require('../src/gameboard')
 
 describe('test Gameboard factory function', () => {
   describe('test board size', () => {
@@ -15,6 +8,16 @@ describe('test Gameboard factory function', () => {
     })
     test('test x dimension', () => {
       expect(testBoard.getBoard()[0]).toHaveLength(10)
+    })
+    test('test testBoard filled with empty cell', () => {
+      const testBoard = [[]]
+      testBoard.forEach(x => x.forEach(y => {
+        expect(testBoard[x][y]).toEqual({
+          ship: undefined,
+          shipHull: undefined,
+          isShot: false
+        })
+      }))
     })
   })
   describe('test ship placement', () => {
