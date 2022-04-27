@@ -25,11 +25,8 @@ describe('testing Ship factory function', () => {
     })
   })
   describe('ship being hit', () => {
-    let dummy
-    beforeAll(() => {
-      // assume ship's length is 4
-      dummy = Ship(4)
-    })
+    // assume ship's length is 4
+    const dummy = Ship(4)
     test('ship being hit on 0', () => {
       expect(dummy.hit(0)).toBe('ship has been hit on hull 0')
       expect(dummy.getStatus()).toEqual(['hit', 'ok', 'ok', 'ok'])
@@ -46,10 +43,7 @@ describe('testing Ship factory function', () => {
     })
   })
   describe('ship is sunk', () => {
-    let dummy
-    beforeAll(() => {
-      dummy = Ship(4)
-    })
+    const dummy = Ship(4)
     test('ship have no damage', () => {
       expect(dummy.isSunk()).toBe(false)
     })

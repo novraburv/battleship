@@ -17,6 +17,7 @@ function Ship (size) {
   function isSunk () {
     return array.every(x => x === 'hit')
   }
+
   return { getStatus, hit, isSunk }
 }
 
