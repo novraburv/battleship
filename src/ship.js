@@ -1,3 +1,4 @@
+// Ship is a factory function
 function Ship (size) {
   if (size < 1) throw new Error(`unable to build ship size ${size}`)
 

@@ -6,6 +6,7 @@ const Gameboard = require('../src/gameboard')
 // * placeShip(x, y, orientation, length)
 // * receiveAttack(x, y)
 // * getBoard()
+// * getBattleships()
 // * getCell(x, y)
 
 describe('test Gameboard factory function', () => {
@@ -18,9 +19,9 @@ describe('test Gameboard factory function', () => {
       expect(testBoard.getBoard()[0]).toHaveLength(10)
     })
     test('test testBoard filled with empty cell', () => {
-      testBoard.getBoard().forEach(x => testBoard.getBoard()[x].forEach(y => {
-        expect(testBoard.getBoard()[x][y]).toEqual({
-          ship: undefined,
+      testBoard.getBoard().forEach(row => row.forEach(cell => {
+        expect(cell).toEqual({
+          shipId: undefined,
           shipHull: undefined,
           isShot: false
         })
@@ -31,38 +32,26 @@ describe('test Gameboard factory function', () => {
     const testBoard = Gameboard(10, 10)
     // assumptions:
     // * ship sized 4
-    test('ship1 placed on 1, 2 horizontally', () => {
+    describe('ship1 placed on 1, 2 horizontally', () => {
       testBoard.placeShip(1, 2, 'H', 4)
       for (let x = 0; x < 4; x++) {
-        expect(testBoard.getBoard()[1 + x][2]).toEqual({
-          ship: testBoard.battleships[0],
-          shipHull: x,
-          isShot: false
+        test(`check cell ${1 + x}, 2`, () => {
+          expect(testBoard.getCell(1 + x, 2)).toEqual({
+            shipId: 0,
+            shipHull: x,
+            isShot: false
+          })
         })
       }
     })
     test('ship2 placed on 3, 0 vertically, expect failure', () => {
-      expect(testBoard.placeShip(3, 0, 'V', 4)).toBe('failed to place ship, cell 3, 2 is reserved')
+      expect(() => testBoard.placeShip(3, 0, 'V', 4)).toThrow('placement obstructed')
     })
     test('ship3 placed on 9, 9 horizontally', () => {
-      testBoard.placeShip(9, 9, 'H', 4)
-      for (let x = 0; x < 4; x++) {
-        expect(testBoard.getBoard()[9 - x][9]).toEqual({
-          ship: testBoard.battleships[1],
-          shipHull: x,
-          isShot: false
-        })
-      }
+      expect(() => testBoard.placeShip(9, 9, 'H', 4)).toThrow('exceeded boundaries')
     })
     test('ship4 placed on 9, 8 vertically', () => {
-      testBoard.placeShip(9, 8, 'V', 4)
-      for (let y = 0; y < 4; y++) {
-        expect(testBoard.getBoard()[9][8 - y]).toEqual({
-          ship: testBoard.battleships[2],
-          shipHull: y,
-          isShot: false
-        })
-      }
+      expect(() => testBoard.placeShip(9, 8, 'H', 4)).toThrow('exceeded boundaries')
     })
   })
   describe('test receiveAttack', () => {
@@ -96,13 +85,13 @@ describe('test Gameboard factory function', () => {
       testBoard.receiveAttack(1, 1)
       testBoard.receiveAttack(2, 2)
       testBoard.receiveAttack(2, 3)
-      expect(testBoard.battleships.every(ship => ship.isSunk())).toBe(false)
+      expect(testBoard.getBattleships.every(ship => ship.isSunk())).toBe(false)
     })
     test('sunken ships equals to owned ships, game over', () => {
       for (let i = 0; i < 3; i++) {
-        testBoard.reciveAttack(3, 3 + i)
+        testBoard.receiveAttack(3, 3 + i)
       }
-      expect(testBoard.battleships.every(ship => ship.isSunk())).toBe(true)
+      expect(testBoard.getBattleships.every(ship => ship.isSunk())).toBe(true)
     })
   })
 })
