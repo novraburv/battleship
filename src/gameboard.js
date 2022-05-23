@@ -35,7 +35,13 @@ function Gameboard (x, y) {
 
     battleships.push(Ship(length))
   }
-  function receiveAttack (x, y) {}
+  function receiveAttack (x, y) {
+    if (board[y][x].isShot) return 'unable to hit, you already shot this tile'
+    if (board[y][x].shipId === undefined) return 'missed'
+
+    board[y][x].isShot = true
+    return 'hit'
+  }
 
   /// /////////////////////
   // SUPPORTING FUNCTIONS
