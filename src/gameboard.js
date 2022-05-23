@@ -11,9 +11,6 @@ function Gameboard (x, y) {
   function getCell (x, y) {
     return board[y][x]
   }
-  function getBattleships () {
-    return battleships
-  }
   function placeShip (x, y, orientation, length) {
     // check boundaries
     if (checkBoundaries(x, y, orientation, length, board)) throw new Error('exceeded boundaries')
@@ -36,11 +33,16 @@ function Gameboard (x, y) {
     battleships.push(Ship(length))
   }
   function receiveAttack (x, y) {
-    if (board[y][x].isShot) return 'unable to hit, you already shot this tile'
-    if (board[y][x].shipId === undefined) return 'missed'
+    const { shipId, shipHull, isShot } = board[y][x]
+    if (isShot) return 'unable to hit, you already shot this tile'
+    if (shipId === undefined) return 'missed'
 
+    battleships[shipId].hit(shipHull)
     board[y][x].isShot = true
     return 'hit'
+  }
+  function checkAllSunk () {
+    return battleships.every(ship => ship.isSunk())
   }
 
   /// /////////////////////
@@ -75,9 +77,9 @@ function Gameboard (x, y) {
   /// /////////////////
   // REVEALED FUNCTIONS
   return {
+    checkAllSunk,
     getBoard,
     getCell,
-    getBattleships,
     placeShip,
     receiveAttack
   }

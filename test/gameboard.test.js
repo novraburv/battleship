@@ -1,4 +1,5 @@
 const Gameboard = require('../src/gameboard')
+const Ship = require('../src/ship')
 
 // Gameboard factory contains
 // * board - 2D array of the board
@@ -76,22 +77,23 @@ describe('test Gameboard factory function', () => {
   })
   describe('test all ship is sunk', () => {
     const testBoard = Gameboard(10, 10)
+
     testBoard.placeShip(1, 1, 'H', 1)
     testBoard.placeShip(2, 2, 'H', 2)
-    testBoard.placeShip(3, 3, 'H', 3)
+    testBoard.placeShip(3, 3, 'V', 3)
     // assumptions:
     // * 3 ships on the board
     test('sunken ships less than owned ships, continue game', () => {
       testBoard.receiveAttack(1, 1)
       testBoard.receiveAttack(2, 2)
-      testBoard.receiveAttack(2, 3)
-      expect(testBoard.getBattleships.every(ship => ship.isSunk())).toBe(false)
+      testBoard.receiveAttack(3, 2)
+      expect(testBoard.checkAllSunk()).toBeFalsy()
     })
     test('sunken ships equals to owned ships, game over', () => {
       for (let i = 0; i < 3; i++) {
         testBoard.receiveAttack(3, 3 + i)
       }
-      expect(testBoard.getBattleships.every(ship => ship.isSunk())).toBe(true)
+      expect(testBoard.checkAllSunk()).toBeTruthy()
     })
   })
 })
