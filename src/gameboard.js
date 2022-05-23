@@ -16,23 +16,10 @@ function Gameboard (x, y) {
   }
   function placeShip (x, y, orientation, length) {
     // check boundaries
-    if ((orientation === 'H' && x + length >= board[0].length) ||
-    (orientation === 'V' && y + length >= board.length)) throw new Error('exceeded boundaries')
+    if (checkBoundaries(x, y, orientation, length, board)) throw new Error('exceeded boundaries')
 
     // check obstruction
-    const temp = []
-    if (orientation === 'H') {
-      for (let i = 0; i < length; i++) {
-        temp.push(board[y][x + i])
-      }
-    }
-    if (orientation === 'V') {
-      for (let i = 0; i < length; i++) {
-        temp.push(board[y + i][x])
-      }
-    }
-
-    if (temp.some(cell => cell.shipId !== undefined)) throw new Error('placement obstructed')
+    if (checkObstruction(x, y, orientation, length, board)) throw new Error('placement obstructed')
 
     // start placing ship
     if (orientation === 'H') {
@@ -50,6 +37,37 @@ function Gameboard (x, y) {
   }
   function receiveAttack (x, y) {}
 
+  /// /////////////////////
+  // SUPPORTING FUNCTIONS
+  function generateCell (index, hull) {
+    // index means index of ships on 'battleships' array
+    return {
+      shipId: index,
+      shipHull: hull,
+      isShot: false
+    }
+  }
+  function checkBoundaries (x, y, orientation, length) {
+    return (orientation === 'H' && x + length >= board[0].length) ||
+    (orientation === 'V' && y + length >= board.length)
+  }
+  function checkObstruction (x, y, orientation, length) {
+    const temp = []
+    if (orientation === 'H') {
+      for (let i = 0; i < length; i++) {
+        temp.push(board[y][x + i])
+      }
+    }
+    if (orientation === 'V') {
+      for (let i = 0; i < length; i++) {
+        temp.push(board[y + i][x])
+      }
+    }
+    return temp.some(cell => cell.shipId !== undefined)
+  }
+
+  /// /////////////////
+  // REVEALED FUNCTIONS
   return {
     getBoard,
     getCell,
@@ -60,12 +78,3 @@ function Gameboard (x, y) {
 }
 
 module.exports = Gameboard
-
-// index means index of ships on 'battleships' array
-function generateCell (index, hull) {
-  return {
-    shipId: index,
-    shipHull: hull,
-    isShot: false
-  }
-}
