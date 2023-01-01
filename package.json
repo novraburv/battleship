@@ -1,0 +1,28 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "The Odin Project - battleship game",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novraburv/battleship.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/novraburv/battleship/issues"
+  },
+  "homepage": "https://github.com/novraburv/battleship#readme",
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "standard": "^17.0.0"
+  },
+  "standard": {
+    "env":["jest"]
+  }
+}
