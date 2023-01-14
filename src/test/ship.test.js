@@ -1,18 +1,18 @@
-// const ship = require('../ship.js')
+import {Ship} from '../ship.js'
 
 describe('test hit() count', () => {
   // assume ship length is 3
-  const ship0 = {}
+  const ship0 = Ship(3)
   beforeEach(() => {
     ship0.hit()
   })
-  test.todo('first hit', () => {
+  test('first hit', () => {
     expect(ship0.getHP()).toBe(2)
   })
-  test.todo('second hit', () => {
+  test('second hit', () => {
     expect(ship0.getHP()).toBe(1)
   })
-  test.todo('last hit', () => {
+  test('last hit', () => {
     expect(ship0.getHP()).toBe(0)
   })
 })
