@@ -1,15 +1,15 @@
-function Ship (size) {
-  let HP = size
+function Ship(size) {
+  let HP = size;
 
-  function getHP () {
-    return HP
+  function getHP() {
+    return HP;
   }
 
-  function hit () {
-    HP--
+  function hit() {
+    HP--;
   }
 
-  return { getHP, hit }
+  return { getHP, hit };
 }
 
-export { Ship }
+export { Ship };
