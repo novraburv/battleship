@@ -5,11 +5,15 @@ function Ship(size) {
     return HP;
   }
 
+  function isSunk() {
+    return HP === 0 ? true : false
+  }
+
   function hit() {
     HP--;
   }
 
-  return { getHP, hit };
+  return { getHP, isSunk, hit };
 }
 
 export { Ship };
