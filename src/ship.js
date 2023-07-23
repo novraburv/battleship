@@ -1,19 +1,19 @@
-function Ship(size) {
-  let HP = size;
+function Ship (size) {
+  let HP = size
 
-  function getHP() {
-    return HP;
+  function getHP () {
+    return HP
   }
 
-  function isSunk() {
-    return HP === 0 ? true : false
+  function isSunk () {
+    return HP === 0
   }
 
-  function hit() {
-    HP--;
+  function hit () {
+    HP--
   }
 
-  return { getHP, isSunk, hit };
+  return { getHP, isSunk, hit }
 }
 
-export { Ship };
+export { Ship }
